@@ -21,6 +21,20 @@
 #' It is expected that once a user is comfortable fitting pre-defined
 #' \pkg{edstan} models, they will write their own Stan models and fit them with
 #' \code{\link[rstan]{stan}}, for which \code{\link{irt_stan}} is a wrapper.
+#'
+#' @seealso Case studies for each of the \pkg{edstan} models have been published.
+#'
+#' Rasch and two-parameter logistic models
+#'
+#' \url{http://mc-stan.org/documentation/case-studies/rasch_and_2pl.html}
+#'
+#' (Generalized) partial credit model
+#'
+#' \url{http://mc-stan.org/documentation/case-studies/pcm_and_gpcm.html}
+#'
+#' (Generalized) rating scale model
+#'
+#' \url{http://mc-stan.org/documentation/case-studies/rsm_and_grsm.html}
 #' @import rstan
 "_PACKAGE"
 #> [1] "_PACKAGE"
@@ -282,7 +296,7 @@ irt_data <- function(response_matrix = matrix(), y = integer(), ii = integer(),
 #'
 #' fit_pcm <- irt_stan(agg_list_1, model = "pcm_latent_reg.stan",
 #'                     iter = 300, chains = 4)
-#' print_irt_stan(fit_gpcm, agg_list_1)
+#' print_irt_stan(fit_pcm, agg_list_1)
 #'
 #'
 #' # Fit the generalized rating scale and partial credit models including
@@ -506,7 +520,7 @@ stan_columns_plot <- function(fit, stat = "Rhat", ...) {
 
   ggplot2::ggplot(fit_summary) +
     ggplot2::aes(x = Parameter, y = value_to_plot, color = Parameter) +
-    ggplot2::geom_jitter(height = 0, width = 0.5, show.legend = FALSE) +
+    ggplot2::geom_jitter(height = 0, width = 0.25, show.legend = FALSE) +
     ggplot2::ylab(stat)
 
 }

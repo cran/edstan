@@ -91,38 +91,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="overview" class="section level1">
 <h1>Overview</h1>
 <p>The <strong>edstan</strong> package for <strong>R</strong> provides convenience functions and pre-programmed <strong>Stan</strong> models related to item response theory (IRT). Its purpose is to make fitting common IRT models using Stan easy. <strong>edstan</strong> relies on the <strong>rstan</strong> package, which should be installed first. <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">See here</a> for instructions on installing <strong>rstan</strong>.</p>
-<p>The following table lists the models packaged with <strong>edstan</strong>. Each of these may optionally included a latent regression of ability. The <strong>Stan</strong> code for these models is documented in a series of case studies.</p>
+<p>The following table lists the models packaged with <strong>edstan</strong>. Each of these may optionally included a latent regression of ability. The table includes links to case studies that document the <strong>Stan</strong> code for these models and provide example analyses.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Model</th>
-<th align="left"><strong>Stan</strong> file</th>
+<th>Model</th>
+<th><strong>Stan</strong> file</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Rasch</td>
-<td align="left"><em>rasch_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/rasch_and_2pl.html">Rasch</a></td>
+<td><em>rasch_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td align="left">Partial credit</td>
-<td align="left"><em>pcm_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/pcm_and_gpcm.html">Partial credit</a></td>
+<td><em>pcm_latent_reg.stan</em></td>
 </tr>
 <tr class="odd">
-<td align="left">Rating scale</td>
-<td align="left"><em>rsm_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/rsm_and_grsm.html">Rating scale</a></td>
+<td><em>rsm_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td align="left">Two-parameter logistic</td>
-<td align="left"><em>2pl_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/rasch_and_2pl.html">Two-parameter logistic</a></td>
+<td><em>2pl_latent_reg.stan</em></td>
 </tr>
 <tr class="odd">
-<td align="left">Generalized partial credit</td>
-<td align="left"><em>gpcm_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/pcm_and_gpcm.html">Generalized partial credit</a></td>
+<td><em>gpcm_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td align="left">Generalized rating scale</td>
-<td align="left"><em>grsm_latent_reg.stan</em></td>
+<td><a href="http://mc-stan.org/documentation/case-studies/rsm_and_grsm.html">Generalized rating scale</a></td>
+<td><em>grsm_latent_reg.stan</em></td>
 </tr>
 </tbody>
 </table>
@@ -130,30 +130,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <table>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Purpose</th>
+<th>Function</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>irt_data()</code></td>
-<td align="left">Prepares data for fitting</td>
+<td><code>irt_data()</code></td>
+<td>Prepares data for fitting</td>
 </tr>
 <tr class="even">
-<td align="left"><code>labelled_integer()</code></td>
-<td align="left">Create vector of consecutive integers</td>
+<td><code>labelled_integer()</code></td>
+<td>Create vector of consecutive integers</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>irt_stan()</code></td>
-<td align="left">Wrapper for Running MCMC</td>
+<td><code>irt_stan()</code></td>
+<td>Wrapper for Running MCMC</td>
 </tr>
 <tr class="even">
-<td align="left"><code>print_irt_stan()</code></td>
-<td align="left">Show table of output</td>
+<td><code>print_irt_stan()</code></td>
+<td>Show table of output</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>stan_columns_plot()</code></td>
-<td align="left">Create plot of convergence statistics</td>
+<td><code>stan_columns_plot()</code></td>
+<td>Create plot of convergence statistics</td>
 </tr>
 </tbody>
 </table>
@@ -304,9 +304,9 @@ fit_gpcm &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(agg_list
 <p><em>gpcm_latent_reg.stan</em></p>
 <p><span class="math display">\[
 \Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \alpha_i, \beta_i) =
-\frac{\exp \sum_{s=1}^y (\alpha_i  \theta_j + w_{j}' \lambda - \beta_{is})}
+\frac{\exp \sum_{s=1}^y (\alpha_i  \theta_j - \beta_{is})}
      {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k 
-       (\alpha_i \theta_j + w_{j}' \lambda - \beta_{is})}
+       (\alpha_i \theta_j - \beta_{is})}
 \]</span> <span class="math display">\[
 \Pr(Y_{ij} = y,~y = 0 | \theta_j, \alpha_i, \beta_i) =
 \frac{1}

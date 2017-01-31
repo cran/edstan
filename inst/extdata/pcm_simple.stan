@@ -1,10 +1,10 @@
 functions {
-  real pcm(int r, real theta, vector beta) {
+  real pcm(int y, real theta, vector beta) {
     vector[rows(beta) + 1] unsummed;
     vector[rows(beta) + 1] probs;
     unsummed = append_row(rep_vector(0.0, 1), theta - beta);
     probs = softmax(cumulative_sum(unsummed));
-    return categorical_lpmf(r | probs);
+    return categorical_lpmf(y + 1 | probs);
   }
 }
 data {
@@ -16,34 +16,19 @@ data {
   int<lower=0> y[N];             // response for n; y = 0, 1 ... m_i
 }
 transformed data {
-  int r[N];                      // modified response; r = 1, 2, ... m_i + 1
-  int m[I];                      // # parameters per item
-  int pos[I];                    // first position in beta vector for item
-  m = rep_array(0, I);
-  for(n in 1:N) {
-    r[n] = y[n] + 1;
-    if(y[n] > m[ii[n]]) m[ii[n]] = y[n];
-  }
-  pos[1] = 1;
-  for(i in 2:(I))
-    pos[i] = m[i-1] + pos[i-1];
+  int m;                         // # parameters per item (same for all items)
+  m = max(y);
 }
 parameters {
-  vector[sum(m)-1] beta_free;
+  vector[m] beta[I];
   vector[J] theta;
   real<lower=0> sigma;
-  real lambda;
-}
-transformed parameters {
-  vector[sum(m)] beta;
-  beta[1:(sum(m)-1)] = beta_free;
-  beta[sum(m)] = -1*sum(beta_free);
 }
 model {
-  beta_free ~ normal(0, 9);
-  theta ~ normal(lambda, sigma);
-  lambda ~ student_t(3, 0, 1);
+  for(i in 1:I)
+    beta[i] ~ normal(0, 9);
+  theta ~ normal(0, sigma);
   sigma ~ exponential(.1);
   for (n in 1:N)
-    target += pcm(r[n], theta[jj[n]],  segment(beta, pos[ii[n]], m[ii[n]]));
+    target += pcm(y[n], theta[jj[n]], beta[ii[n]]);
 }
