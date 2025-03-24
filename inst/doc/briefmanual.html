@@ -1,64 +1,334 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Daniel C. Furr" />
 
 
 <title>A brief manual</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
-
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
 
 </head>
 
@@ -68,66 +338,95 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">A brief manual</h1>
-<h4 class="author"><em>Daniel C. Furr</em></h4>
+<h4 class="author">Daniel C. Furr</h4>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#brief-tutorial">Brief tutorial</a><ul>
-<li><a href="#spelling-data-and-dichotomous-irt">Spelling data and dichotomous IRT</a></li>
-<li><a href="#verbal-aggression-data-and-polytomous-irt">Verbal aggression data and polytomous IRT</a></li>
+<li><a href="#overview" id="toc-overview">Overview</a></li>
+<li><a href="#brief-tutorial" id="toc-brief-tutorial">Brief tutorial</a>
+<ul>
+<li><a href="#dichotomous-irt-with-spelling-data" id="toc-dichotomous-irt-with-spelling-data">Dichotomous IRT with
+spelling data</a></li>
+<li><a href="#polytomous-irt-with-verbal-aggression-data" id="toc-polytomous-irt-with-verbal-aggression-data">Polytomous IRT with
+verbal aggression data</a></li>
 </ul></li>
-<li><a href="#technical-notes">Technical notes</a><ul>
-<li><a href="#notation">Notation</a></li>
-<li><a href="#rasch-family-models">Rasch family models</a></li>
-<li><a href="#models-featuring-discrimination-parameters">Models featuring discrimination parameters</a></li>
-<li><a href="#priors">Priors</a></li>
+<li><a href="#technical-notes" id="toc-technical-notes">Technical
+notes</a>
+<ul>
+<li><a href="#notation" id="toc-notation">Notation</a></li>
+<li><a href="#rasch-family-models" id="toc-rasch-family-models">Rasch
+family models</a></li>
+<li><a href="#models-featuring-discrimination-parameters" id="toc-models-featuring-discrimination-parameters">Models featuring
+discrimination parameters</a></li>
+<li><a href="#priors" id="toc-priors">Priors</a></li>
 </ul></li>
-<li><a href="#writing-your-own-stan-models">Writing your own <strong>Stan</strong> models</a></li>
+<li><a href="#writing-your-own-stan-models" id="toc-writing-your-own-stan-models">Writing your own Stan
+models</a></li>
 </ul>
 </div>
 
 <div id="overview" class="section level1">
 <h1>Overview</h1>
-<p>The <strong>edstan</strong> package for <strong>R</strong> provides convenience functions and pre-programmed <strong>Stan</strong> models related to item response theory (IRT). Its purpose is to make fitting common IRT models using Stan easy. <strong>edstan</strong> relies on the <strong>rstan</strong> package, which should be installed first. <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">See here</a> for instructions on installing <strong>rstan</strong>.</p>
-<p>The following table lists the models packaged with <strong>edstan</strong>. Each of these may optionally included a latent regression of ability. The table includes links to case studies that document the <strong>Stan</strong> code for these models and provide example analyses.</p>
+<p>The edstan package for R provides convenience functions and
+predefined Stan models related to item response theory (IRT). Its
+purpose is to make fitting common IRT models using Stan easy. edstan
+relies on the rstan package, which should be installed first. <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">See
+here</a> for instructions on installing rstan.</p>
+<p>The following table lists the models packaged with edstan. Each of
+these may optionally included a latent regression of ability. The table
+includes also links to case studies for the models, though it should be
+noted that the Stan code and prior distributions have changed somewhat
+this they were written.</p>
 <table>
+<colgroup>
+<col width="79%" />
+<col width="20%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Model</th>
-<th><strong>Stan</strong> file</th>
+<th>Stan file</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="http://mc-stan.org/documentation/case-studies/rasch_and_2pl.html">Rasch</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/rasch_and_2pl.html">Rasch</a></td>
 <td><em>rasch_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td><a href="http://mc-stan.org/documentation/case-studies/pcm_and_gpcm.html">Partial credit</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/pcm_and_gpcm.html">Partial
+credit</a></td>
 <td><em>pcm_latent_reg.stan</em></td>
 </tr>
 <tr class="odd">
-<td><a href="http://mc-stan.org/documentation/case-studies/rsm_and_grsm.html">Rating scale</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/rsm_and_grsm.html">Rating
+scale</a></td>
 <td><em>rsm_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td><a href="http://mc-stan.org/documentation/case-studies/rasch_and_2pl.html">Two-parameter logistic</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/rasch_and_2pl.html">Two-parameter
+logistic</a></td>
 <td><em>2pl_latent_reg.stan</em></td>
 </tr>
 <tr class="odd">
-<td><a href="http://mc-stan.org/documentation/case-studies/pcm_and_gpcm.html">Generalized partial credit</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/pcm_and_gpcm.html">Generalized
+partial credit</a></td>
 <td><em>gpcm_latent_reg.stan</em></td>
 </tr>
 <tr class="even">
-<td><a href="http://mc-stan.org/documentation/case-studies/rsm_and_grsm.html">Generalized rating scale</a></td>
+<td><a href="https://mc-stan.org/learn-stan/case-studies/rsm_and_grsm.html">Generalized
+rating scale</a></td>
 <td><em>grsm_latent_reg.stan</em></td>
 </tr>
 </tbody>
 </table>
-<p>The next table lists the functions packaged with <strong>edstan</strong>.</p>
+<p>The next table lists the functions packaged with edstan.</p>
 <table>
+<colgroup>
+<col width="32%" />
+<col width="67%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Function</th>
@@ -140,125 +439,227 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td>Prepares data for fitting</td>
 </tr>
 <tr class="even">
-<td><code>labelled_integer()</code></td>
-<td>Create vector of consecutive integers</td>
-</tr>
-<tr class="odd">
 <td><code>irt_stan()</code></td>
 <td>Wrapper for Running MCMC</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>print_irt_stan()</code></td>
 <td>Show table of output</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>stan_columns_plot()</code></td>
 <td>Create plot of convergence statistics</td>
+</tr>
+<tr class="odd">
+<td><code>labelled_integer()</code></td>
+<td>Create vector of consecutive integers</td>
+</tr>
+<tr class="even">
+<td><code>rescale_binary()</code></td>
+<td>Appropriately scale binary person covariates</td>
+</tr>
+<tr class="odd">
+<td><code>rescale_continuous()</code></td>
+<td>Appropriately scale continuous person covariates</td>
+</tr>
+<tr class="even">
+<td><code>edstan_model_code()</code></td>
+<td>Print the Stan file for a given model</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="brief-tutorial" class="section level1">
 <h1>Brief tutorial</h1>
-<div id="spelling-data-and-dichotomous-irt" class="section level2">
-<h2>Spelling data and dichotomous IRT</h2>
-<p>The R code below first loads <strong>edstan</strong>, which implicitly loads <strong>rstan</strong>. Then the two commands that follow set options related to <strong>rstan</strong>, which are generally recommended. The first causes compiled <strong>Stan</strong> models to be saved to disc, which allows models to run more quickly after the first time. The second causes <strong>Stan</strong> to run multiple MCMC chains in parallel.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load packages and set options</span>
-<span class="kw">library</span>(edstan)
-<span class="kw">rstan_options</span>(<span class="dt">auto_write =</span> <span class="ot">TRUE</span>)
-<span class="kw">options</span>(<span class="dt">mc.cores =</span> parallel::<span class="kw">detectCores</span>())</code></pre></div>
-<p>Next we get summary information for the spelling data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Summarize the spelling data</span>
-<span class="kw">str</span>(spelling)</code></pre></div>
-<p>The dataset is a response matrix indicating whether the 658 respondents spelled four words correctly. It also includes a dummy variable for whether the respondent is male. Data is fed into <strong>Stan</strong> in list form, and the next block of code demonstrates how a suitable data list may be constructed using the <code>irt_data()</code> function. The response matrix (that is, all columns but the first) is provided as the <code>response_matrix</code> option.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make a data list</span>
-simple_list &lt;-<span class="st"> </span><span class="kw">irt_data</span>(<span class="dt">response_matrix =</span> spelling[, -<span class="dv">1</span>])
-<span class="kw">str</span>(simple_list)</code></pre></div>
-<p>This data list may be fed to the <code>irt_stan()</code> function to fit a Rasch or 2PL model, but for this example we will add a person covariate to the model using the optional arguments <code>covariates</code> and <code>formula</code>. The <code>covariates</code> option takes a data frame of person-related covariates and the <code>formula</code> option takes a formula to be applied to that data frame. The left side of the formula should be left empty, though implicitly it is latent ability. The choice of what to include in the latent regression (if anything) is made when calling <code>irt_data()</code> to assemble a data list.</p>
-<p>In the next block a data list is made that includes <code>male</code> as a covariate. Note that <code>drop = FALSE</code> is specified when subsetting the data frame below because <strong>R</strong> will simplify the result to a vector otherwise. This complication is default <strong>R</strong> behavior and not specific to <strong>edstan</strong>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make a data list with person covariates</span>
-latent_reg_list &lt;-<span class="st"> </span><span class="kw">irt_data</span>(<span class="dt">response_matrix =</span> spelling[, -<span class="dv">1</span>],
-                            <span class="dt">covariates =</span> spelling[, <span class="st">&quot;male&quot;</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>],
-                            <span class="dt">formula =</span> ~<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span>male)
-<span class="kw">str</span>(latent_reg_list)</code></pre></div>
-<p>The only difference between the two lists are <code>K</code> and <code>W</code>. The first list has <code>W</code> with <span class="math inline">\(K=1\)</span> columns, which is a constant for the model intercept. The second list has <code>W</code> with <span class="math inline">\(K=2\)</span> columns, which correspond to the constant for the model intercept and the male indicator variable. In either list, <code>W</code> has one row per person.</p>
-<p>Next we fit the model using the <code>irt_stan()</code> function, which is a wrapper for <code>stan()</code> from <strong>rstan</strong>. <code>latent_reg_list</code> is provided as the data, and the name of one of the <em>.stan</em> files to use is provided as the <code>model</code> argument. We also choose the number of chains and number of iterations per chain. By default the first half of each chain is discarded as warm up.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit the Rasch model</span>
-fit_rasch &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(latent_reg_list, <span class="dt">model =</span> <span class="st">&quot;rasch_latent_reg.stan&quot;</span>,
-                      <span class="dt">iter =</span> <span class="dv">300</span>, <span class="dt">chains =</span> <span class="dv">4</span>)</code></pre></div>
-<p>The <code>stan_columns_plot()</code> shows convergence statistics for the fitted model. As an aside, it may also be used to show other statistics such as posterior means or numbers of effective samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View convergence statistics</span>
-<span class="kw">stan_columns_plot</span>(fit_rasch)</code></pre></div>
-<p><code>print_irt_stan()</code> provides a summary of parameter posteriors. It is a wrapper for the <code>print()</code> method for fitted <strong>Stan</strong> models, selecting and organizing the most interesting parameters. Labels for the items are automatically taken from the column names of the response matrix. Regarding the parameters in the output: <code>beta</code> refers to item difficulties, <code>lambda</code> refers to latent regression coefficients, and <code>sigma</code> is the standard deviation of the ability distribution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View a summary of parameter posteriors                      </span>
-<span class="kw">print_irt_stan</span>(fit_rasch, latent_reg_list)</code></pre></div>
-<p>If we prefer to fit the 2PL model with latent regression, we could call <code>irt_stan()</code> and select that <em>.stan</em> file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit the Rasch model</span>
-fit_rasch &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(latent_reg_list, <span class="dt">model =</span> <span class="st">&quot;2pl_latent_reg.stan&quot;</span>,
-                      <span class="dt">iter =</span> <span class="dv">300</span>, <span class="dt">chains =</span> <span class="dv">4</span>)</code></pre></div>
+<div id="dichotomous-irt-with-spelling-data" class="section level2">
+<h2>Dichotomous IRT with spelling data</h2>
+<p>The R code below first loads edstan, which implicitly loads rstan.
+Then the two commands that follow set options related to rstan, which
+are generally recommended. The first causes compiled Stan models to be
+saved to disc, which allows models to run more quickly after the first
+time. The second causes Stan to run multiple MCMC chains in
+parallel.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Load packages and set options</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(edstan)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())</span></code></pre></div>
+<p>Next we preview the spelling data set.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Preview the spelling data</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>spelling[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(spelling), <span class="dv">6</span>), ]</span></code></pre></div>
+<p>The data set is a response matrix indicating whether the 658
+respondents spelled four words correctly. It also includes a dummy
+variable for whether the respondent is male. Data is fed into Stan in
+list form, and the next block of code demonstrates how a suitable data
+list may be constructed using the <code>irt_data()</code> function. The
+response matrix (that is, all columns but the first) is provided as the
+<code>response_matrix</code> option.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Make a data list</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>simple_list <span class="ot">&lt;-</span> <span class="fu">irt_data</span>(<span class="at">response_matrix =</span> spelling[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">str</span>(simple_list)</span></code></pre></div>
+<p>This data list may be fed to the <code>irt_stan()</code> function to
+fit a Rasch or 2PL model, but for this example we will add a person
+covariate to the model using the optional arguments <em>covariates</em>
+and <em>formula</em>. The <em>covariates</em> option takes a data frame
+of person-related covariates and the <em>formula</em> option takes a
+formula to be applied to that data frame. The left side of the formula
+should be left empty, though implicitly it is latent ability. The choice
+of what to include in the latent regression (if anything) is made when
+calling <code>irt_data()</code> to assemble a data list.</p>
+<p>In the next block a data list is made that includes <code>male</code>
+as a covariate. We use the <code>rescale_binary()</code> function to
+rescale this covariate for compatibility with the prior distributions
+specified in edstan models.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Make a data list with person covariates</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>latent_reg_list <span class="ot">&lt;-</span> <span class="fu">irt_data</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">response_matrix =</span> spelling[, <span class="sc">-</span><span class="dv">1</span>],</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">covariates =</span> spelling,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">formula =</span> <span class="sc">~</span> <span class="fu">rescale_binary</span>(male)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">str</span>(latent_reg_list)</span></code></pre></div>
+<p>The only difference between the two lists are <code>K</code> and
+<code>W</code>. The first list has <code>W</code> with <span class="math inline">\(K=1\)</span> columns, which is a constant for the
+model intercept. The second list has <code>W</code> with <span class="math inline">\(K=2\)</span> columns, which correspond to the
+constant for the model intercept and the male indicator variable. In
+either list, <code>W</code> has one row per person.</p>
+<p>Next we fit the model using the <code>irt_stan()</code> function,
+which is a wrapper for <code>rstan::stan()</code>.
+<code>latent_reg_list</code> is provided as the data, and the name of
+one of the <em>.stan</em> files to use is provided as the <em>model</em>
+argument. We also choose the number of chains and number of iterations
+per chain. By default the first half of each chain is discarded as warm
+up.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Fit the Rasch model</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>fit_rasch <span class="ot">&lt;-</span> <span class="fu">irt_stan</span>(latent_reg_list, <span class="at">model =</span> <span class="st">&quot;rasch_latent_reg.stan&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>                      <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">chains =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p>The <code>stan_columns_plot()</code> function shows convergence
+statistics for the fitted model. As an aside, it may also be used to
+show other statistics such as posterior means or numbers of effective
+samples.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># View convergence statistics</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">stan_columns_plot</span>(fit_rasch)</span></code></pre></div>
+<p><code>print_irt_stan()</code> provides a summary of parameter
+posteriors. It is a wrapper for the <code>print()</code> method for
+fitted Stan models, selecting and organizing the most interesting
+parameters. Labels for the items are automatically taken from the column
+names of the response matrix. Regarding the parameters in the output:
+<em>beta</em> refers to item difficulties, <em>lambda</em> refers to
+latent regression coefficients, and <em>sigma</em> is the standard
+deviation of the ability distribution.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># View a summary of parameter posteriors                      </span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">print_irt_stan</span>(fit_rasch, latent_reg_list)</span></code></pre></div>
+<p>A convenient way to view the Stan code for the model is the
+<code>edstan_model_code()</code> function.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">edstan_model_code</span>(<span class="st">&quot;rasch_latent_reg.stan&quot;</span>)</span></code></pre></div>
+<p>If we prefer to fit the 2PL model with latent regression, we could
+call <code>irt_stan()</code> and select that <em>.stan</em> file.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Fit the Rasch model</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>fit_rasch <span class="ot">&lt;-</span> <span class="fu">irt_stan</span>(latent_reg_list, <span class="at">model =</span> <span class="st">&quot;2pl_latent_reg.stan&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                      <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">chains =</span> <span class="dv">4</span>)</span></code></pre></div>
 </div>
-<div id="verbal-aggression-data-and-polytomous-irt" class="section level2">
-<h2>Verbal aggression data and polytomous IRT</h2>
-<p>The second example will use the verbal aggression data to fit a polytomous item response theory model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Describe the data</span>
-<span class="kw">str</span>(aggression)</code></pre></div>
-<p>The data consists of 316 persons responding to 24 items with responses scored as 0, 1, or 2. The variable <code>person</code> is a person ID, <code>item</code> is an item ID, and <code>poly</code> is the scored response. In this way, the data may be said to be in “long form” as there is one row per person-item combination. The data includes two person covariates: <code>male</code> is a dummy variable for whether the respondent is male, and <code>anger</code> is the person’s trait anger raw score, a separate measure.</p>
-<p>The <code>labelled_integer()</code> function may help prepare the data list when the data are in long form. <strong>Stan</strong> models generally require that ID variables be consecutive integers starting at one. In other words, the first item must have an ID value of 1, the second 2, and so on. The same is true of person IDs. But sometimes the raw data may have alphanumerics or arbitrary numbers for person or item IDs, and if so we can use <code>labelled_integer()</code> to create an appropriate vector of consecutive integers. The verbal aggression data includes the variable <code>description</code>, which is a brief text description of the item. Below, <code>labelled_integer()</code> is applied to the first few values of this variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Show an example of using labelled_integer()</span>
-<span class="kw">labelled_integer</span>(aggression$description[<span class="dv">1</span>:<span class="dv">5</span>])</code></pre></div>
-<p>The result is integer values that are labeled with the original text descriptions. For the verbal aggression data, we could simply use the <code>item</code> variable for an item index rather than apply <code>labelled_integer()</code> to the descriptions, but a benefit of using <code>labelled_integer()</code> is that the table of posterior summaries (shown shortly) will include the item labels.</p>
-<p>Next we make the data list using <code>irt_data()</code>. However, we’ll use a different set of arguments because the data are in long form: <code>y</code> takes the responses in vector form, <code>ii</code> takes a vector of item IDs, and <code>jj</code> takes a vector of person IDs. The use of <code>covariates</code> and <code>formula</code> are the same as before.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make the data list</span>
-agg_list &lt;-<span class="st"> </span><span class="kw">irt_data</span>(<span class="dt">y =</span> aggression$poly,
-                     <span class="dt">ii =</span> <span class="kw">labelled_integer</span>(aggression$description),
-                     <span class="dt">jj =</span> aggression$person,
-                     <span class="dt">covariates =</span> aggression[, <span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;anger&quot;</span>)],
-                     <span class="dt">formula =</span> ~<span class="st"> </span><span class="dv">1</span> +<span class="st"> </span>male*anger)
-<span class="kw">str</span>(agg_list)</code></pre></div>
-<p>The model is fit using the generalized partial credit model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit the generalized partial credit model</span>
-fit_gpcm &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(agg_list, <span class="dt">model =</span> <span class="st">&quot;gpcm_latent_reg.stan&quot;</span>,
-                     <span class="dt">iter =</span> <span class="dv">300</span>, <span class="dt">chains =</span> <span class="dv">4</span>)</code></pre></div>
+<div id="polytomous-irt-with-verbal-aggression-data" class="section level2">
+<h2>Polytomous IRT with verbal aggression data</h2>
+<p>The second example will use the verbal aggression data to fit a
+polytomous item response theory model.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Preview the data</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">head</span>(aggression)</span></code></pre></div>
+<p>The data consists of 316 persons responding to 24 items with
+responses scored as 0, 1, or 2. The variable <code>person</code> is a
+person ID, <code>item</code> is an item ID, and <code>poly</code> is the
+scored response. In this way, the data may be said to be in “long form”
+as there is one row per person-item combination. The data includes two
+person covariates: <code>male</code> is a dummy variable for whether the
+respondent is male, and <code>anger</code> is the person’s trait anger
+raw score, a separate measure.</p>
+<p>Next we make the data list using <code>irt_data()</code>. However,
+we’ll use a different set of arguments because the data are in long
+form: <code>y</code> takes the responses in vector form, <code>ii</code>
+takes a vector of item IDs, and <code>jj</code> takes a vector of person
+IDs. The use of <em>covariates</em> and <em>formula</em> are the same as
+before. For the latent regression part, we use the
+<code>rescale_binary()</code> and <code>rescale_continuous()</code>
+functions to rescale the covariates for compatibility with the prior
+distributions specified in edstan models.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Make the data list</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>agg_list <span class="ot">&lt;-</span> <span class="fu">irt_data</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">y =</span> aggression<span class="sc">$</span>poly,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="at">ii =</span> aggression<span class="sc">$</span>description,</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="at">jj =</span> aggression<span class="sc">$</span>person,</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="at">covariates =</span> aggression,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="at">formula =</span> <span class="sc">~</span> <span class="fu">rescale_binary</span>(male) <span class="sc">*</span> <span class="fu">rescale_continuous</span>(anger)</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="fu">str</span>(agg_list)</span></code></pre></div>
+<p>The generalized partial credit model is fit to the these data.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Fit the generalized partial credit model</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>fit_gpcm <span class="ot">&lt;-</span> <span class="fu">irt_stan</span>(agg_list, <span class="at">model =</span> <span class="st">&quot;gpcm_latent_reg.stan&quot;</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>                     <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">chains =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p>As before, a plot of convergence statistics is made.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View convergence statistics</span>
-<span class="kw">stan_columns_plot</span>(fit_gpcm)</code></pre></div>
-<p>And lastly we obtain a table of posterior summaries. Here, <code>alpha</code> refers to discriminations, <code>beta</code> refers to step difficulties, and <code>lambda</code> refers to latent regression coefficients.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># View a summary of parameter posteriors    </span>
-<span class="kw">print_irt_stan</span>(fit_gpcm, agg_list)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># View convergence statistics</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">stan_columns_plot</span>(fit_gpcm)</span></code></pre></div>
+<p>And lastly we obtain a table of posterior summaries. Here,
+<em>alpha</em> refers to discrimination parameters, <em>beta</em> refers
+to step difficulty parameters, and <em>lambda</em> refers to latent
+regression coefficients.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># View a summary of parameter posteriors    </span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">print_irt_stan</span>(fit_gpcm, agg_list)</span></code></pre></div>
 </div>
 </div>
 <div id="technical-notes" class="section level1">
 <h1>Technical notes</h1>
-<p>Users will be able to fit the <strong>edstan</strong> models without full knowledge of the technical details, though these are provided in this section. All that is really needed for interpreting results is to know the meanings assigned to the Greek letters.</p>
+<p>Users will be able to fit the edstan models without full knowledge of
+the technical details, though these are provided in this section. All
+that is really needed for interpreting results is to know the meanings
+assigned to the Greek letters.</p>
 <div id="notation" class="section level2">
 <h2>Notation</h2>
-<p>Variables and parameters are similar across <strong>edstan</strong> models. The variables used are:</p>
+<p>Variables and parameters are similar across edstan models. The
+variables used are:</p>
 <ul>
-<li><span class="math inline">\(i = 1 \ldots I\)</span> indexes items.</li>
-<li><span class="math inline">\(j = 1 \ldots J\)</span> indexes persons.</li>
-<li><span class="math inline">\(m_i\)</span> is simultaneously the maximum score and the number of step difficulty parameters for item <span class="math inline">\(i\)</span> for partial credit models. Alternatively, <span class="math inline">\(m\)</span> is the same across all items for rating scale models.</li>
-<li><span class="math inline">\(s = 1 \ldots m_i\)</span> or <span class="math inline">\(s = 1 \ldots m\)</span> indexes steps within items.</li>
-<li><span class="math inline">\(y_{ij}\)</span> is the scored response of person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span>. The lowest score for items must be zero (except for rating scale models).</li>
-<li><span class="math inline">\(w_{j}\)</span> is the vector of covariates for person <span class="math inline">\(j\)</span>, the first element of which <em>must</em> equal one for a model intercept. <span class="math inline">\(w_{j}\)</span> may be assembled into a <span class="math inline">\(J\)</span>-by-<span class="math inline">\(K\)</span> covariate matrix <span class="math inline">\(W\)</span>, where <span class="math inline">\(K\)</span> is number of elements in <span class="math inline">\(w_j\)</span>.</li>
+<li><span class="math inline">\(i = 1 \ldots I\)</span> indexes
+items.</li>
+<li><span class="math inline">\(j = 1 \ldots J\)</span> indexes
+persons.</li>
+<li><span class="math inline">\(m_i\)</span> is simultaneously the
+maximum score and the number of step difficulty parameters for item
+<span class="math inline">\(i\)</span> for partial credit models.
+Alternatively, <span class="math inline">\(m\)</span> is the same across
+all items for rating scale models.</li>
+<li><span class="math inline">\(s = 1 \ldots m_i\)</span> or <span class="math inline">\(s = 1 \ldots m\)</span> indexes steps within
+items.</li>
+<li><span class="math inline">\(y_{ij}\)</span> is the scored response
+of person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span>. The lowest score for items must be
+zero (except for rating scale models).</li>
+<li><span class="math inline">\(w_{j}\)</span> is the vector of
+covariates for person <span class="math inline">\(j\)</span>. <span class="math inline">\(w_{j}\)</span> may be assembled into a <span class="math inline">\(J\)</span>-by-<span class="math inline">\(K\)</span> covariate matrix <span class="math inline">\(W\)</span>, where <span class="math inline">\(K\)</span> is number of elements in <span class="math inline">\(w_j\)</span>.</li>
 </ul>
 <p>The parameters used are:</p>
 <ul>
-<li>For the Rasch and 2PL models, <span class="math inline">\(\beta_i\)</span> is the difficulty for item <span class="math inline">\(i\)</span>. For the rating scale models, <span class="math inline">\(\beta_i\)</span> is the mean difficulty for item <span class="math inline">\(i\)</span>. For partial credit models, <span class="math inline">\(\beta_{is}\)</span> is the difficulty for step <span class="math inline">\(s\)</span> of item <span class="math inline">\(i\)</span>.</li>
-<li><span class="math inline">\(\kappa_s\)</span> is a step difficulty for the (generalized) rating scale model.</li>
-<li><span class="math inline">\(\alpha_i\)</span> is the discrimination parameter for item <span class="math inline">\(i\)</span> (when applicable).</li>
-<li><span class="math inline">\(\theta_j\)</span> is the ability for person <span class="math inline">\(j\)</span>.</li>
-<li><span class="math inline">\(\lambda\)</span> is the vector of latent regression parameters of length <span class="math inline">\(K\)</span> (when applicable).</li>
-<li><span class="math inline">\(\sigma\)</span> is standard deviation for the ability distribution (when applicable).</li>
+<li>For the Rasch and 2PL models, <span class="math inline">\(\beta_i\)</span> is the difficulty for item <span class="math inline">\(i\)</span>. For the rating scale models, <span class="math inline">\(\beta_i\)</span> is the mean difficulty for item
+<span class="math inline">\(i\)</span>. For partial credit models, <span class="math inline">\(\beta_{is}\)</span> is the difficulty for step
+<span class="math inline">\(s\)</span> of item <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(\kappa_s\)</span> is a step difficulty
+for the (generalized) rating scale model.</li>
+<li><span class="math inline">\(\alpha_i\)</span> is the discrimination
+parameter for item <span class="math inline">\(i\)</span> (when
+applicable).</li>
+<li><span class="math inline">\(\theta_j\)</span> is the ability for
+person <span class="math inline">\(j\)</span>.</li>
+<li><span class="math inline">\(\lambda\)</span> is the vector of latent
+regression parameters of length <span class="math inline">\(K\)</span>
+(when applicable).</li>
+<li><span class="math inline">\(\sigma\)</span> is standard deviation
+for the ability distribution (when applicable).</li>
 </ul>
-<p>The <em>.stan</em> files and the notation for the models below closely adhere to these conventions.</p>
+<p>The <em>.stan</em> files and the notation for the models below
+closely adhere to these conventions.</p>
 </div>
 <div id="rasch-family-models" class="section level2">
 <h2>Rasch family models</h2>
 <div id="rasch-model" class="section level3">
 <h3>Rasch model</h3>
 <p><em>rasch_latent_reg.stan</em></p>
-<p><span class="math display">\[ 
-\mathrm{logit} [ \Pr(y_{ij} = 1 | \theta_j, \beta_i) ] = 
+<p><span class="math display">\[
+\mathrm{logit} [ \Pr(y_{ij} = 1 | \theta_j, \beta_i) ] =
   \theta_j - \beta_i
 \]</span></p>
 </div>
@@ -269,7 +670,8 @@ fit_gpcm &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(agg_list
 \Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \beta_i) =
 \frac{\exp \sum_{s=1}^y (\theta_j - \beta_{is})}
      {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k (\theta_j - \beta_{is})}
-\]</span> <span class="math display">\[
+\]</span></p>
+<p><span class="math display">\[
 \Pr(Y_{ij} = y,~y = 0 | \theta_j, \beta_i) =
 \frac{1}
      {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k (\theta_j - \beta_{is})}
@@ -281,11 +683,14 @@ fit_gpcm &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(agg_list
 <p><span class="math display">\[
 \Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \beta_i, \kappa_s) =
 \frac{\exp \sum_{s=1}^y (\theta_j - \beta_i - \kappa_s)}
-     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k (\theta_j - \beta_i - \kappa_s)}
-\]</span> <span class="math display">\[
+     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k (\theta_j - \beta_i -
+\kappa_s)}
+\]</span></p>
+<p><span class="math display">\[
 \Pr(Y_{ij} = y,~y = 0 | \theta_j, \beta_i, \kappa_s) =
 \frac{1}
-     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k (\theta_j - \beta_i - \kappa_s)}
+     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k (\theta_j - \beta_i -
+\kappa_s)}
 \]</span></p>
 </div>
 </div>
@@ -305,51 +710,86 @@ fit_gpcm &lt;-<span class="st"> </span><span class="kw">irt_stan</span>(agg_list
 <p><span class="math display">\[
 \Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \alpha_i, \beta_i) =
 \frac{\exp \sum_{s=1}^y (\alpha_i  \theta_j - \beta_{is})}
-     {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k 
+     {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k
        (\alpha_i \theta_j - \beta_{is})}
-\]</span> <span class="math display">\[
+\]</span></p>
+<p><span class="math display">\[
 \Pr(Y_{ij} = y,~y = 0 | \theta_j, \alpha_i, \beta_i) =
 \frac{1}
-     {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k 
-       (\alpha_i \theta_j + w_{j}' \lambda - \beta_{is})}
+     {1 + \sum_{k=1}^{m_i} \exp \sum_{s=1}^k
+       (\alpha_i \theta_j + w_{j}&#39; \lambda - \beta_{is})}
 \]</span></p>
 </div>
 <div id="generalized-rating-scale-model" class="section level3">
 <h3>Generalized rating scale model</h3>
 <p><em>grsm_latent_reg.stan</em></p>
 <p><span class="math display">\[
-\Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \lambda, \alpha_i, \beta_i, \kappa_s) =
-\frac{\exp \sum_{s=1}^y 
+\Pr(Y_{ij} = y,~y &gt; 0 | \theta_j, \lambda, \alpha_i, \beta_i,
+\kappa_s) =
+\frac{\exp \sum_{s=1}^y
        (\alpha_i \theta_j - \beta_i - \kappa_s)}
-     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k 
+     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k
        (\alpha_i \theta_j - \beta_i - \kappa_s)}
-\]</span> <span class="math display">\[
-\Pr(Y_{ij} = y,~y = 0 | \theta_j, \lambda, \alpha_i, \beta_i, \kappa_s) =
+\]</span></p>
+<p><span class="math display">\[
+\Pr(Y_{ij} = y,~y = 0 | \theta_j, \lambda, \alpha_i, \beta_i, \kappa_s)
+=
 \frac{1}
-     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k 
+     {1 + \sum_{k=1}^{m} \exp \sum_{s=1}^k
        (\alpha_i \theta_j - \beta_i - \kappa_s)}
 \]</span></p>
 </div>
 </div>
 <div id="priors" class="section level2">
 <h2>Priors</h2>
-<p>For Rasch family models, the prior distributions for the person-related parameters are <span class="math display">\[\theta_j \sim \mathrm{N}(w_j' \lambda, \sigma^2)\]</span> <span class="math display">\[\lambda \sim t_3(0, 1)\]</span> <span class="math display">\[\sigma \sim \mathrm{Exp}(.1)\]</span></p>
-<p>For models with discrimination parameters, the priors are <span class="math display">\[\theta_j \sim \mathrm{N}(w_j' \lambda, 1)\]</span> <span class="math display">\[\lambda \sim t_3(0, 1)\]</span></p>
-<p>In either case, the prior for <span class="math inline">\(\lambda\)</span> is applied to centered and scaled versions of the person covariates. Specifically: (1) continuous covariates are mean-centered and then divided by two times their standard deviations, (2) binary covariates are mean-centered and divided their maximum minus minimum values, and (3) no change is made to the constant, set to one, for the model intercept. <span class="math inline">\(t_3\)</span> is the Student’s <span class="math inline">\(t\)</span> distribution with three degrees of freedom. Though the model is estimated using adjusted covariates, the <strong>Stan</strong> models report <span class="math inline">\(\lambda\)</span> for the original values of the covariates.</p>
-<p>The priors for the item parameters are <span class="math display">\[\alpha \sim \mathrm{lognormal}(1, 1)\]</span> <span class="math display">\[\beta \sim \mathrm{N}(0, 9)\]</span> <span class="math display">\[\kappa \sim \mathrm{N}(0, 9)\]</span> No prior is placed on the last <span class="math inline">\(\beta_i\)</span>, as it is constrained such that the vector <span class="math inline">\(\beta\)</span> has a mean of zero. The same is true regarding the vector <span class="math inline">\(\kappa\)</span>.</p>
+<p>For Rasch family models, the prior distributions for the
+person-related parameters are</p>
+<ul>
+<li><span class="math inline">\(\theta_j \sim \mathrm{N}(w_j&#39;
+\lambda, \sigma^2)\)</span></li>
+<li><span class="math inline">\(\lambda \sim t_7(0, 2.5)\)</span></li>
+<li><span class="math inline">\(\sigma \sim \mathrm{gamma}(2,
+1)\)</span></li>
+</ul>
+<p>For models with discrimination parameters, the priors are</p>
+<ul>
+<li><span class="math inline">\(\theta_j \sim \mathrm{N}(w_j&#39;
+\lambda, 1)\)</span></li>
+<li><span class="math inline">\(\lambda \sim t_7(0, 2.5)\)</span></li>
+</ul>
+<p>In either case, the prior for <span class="math inline">\(\lambda\)</span> is applied to centered and scaled
+versions of the person covariates. Specifically: (1) continuous
+covariates are mean-centered and then divided by two times their
+standard deviations, (2) binary covariates are mean-centered and divided
+their maximum minus minimum values, and (3) no change is made to the
+constant, set to one, for the model intercept. <span class="math inline">\(t_7\)</span> is the Student’s <span class="math inline">\(t\)</span> distribution with seven degrees of
+freedom.</p>
+<p>The priors for the item parameters are</p>
+<ul>
+<li><span class="math inline">\(\alpha \sim \mathrm{lognormal}(.5,
+1)\)</span></li>
+<li><span class="math inline">\(\beta \sim \mathrm{N}(0,
+9)\)</span></li>
+<li><span class="math inline">\(\kappa \sim \mathrm{N}(0,
+9)\)</span></li>
+</ul>
 </div>
 </div>
 <div id="writing-your-own-stan-models" class="section level1">
-<h1>Writing your own <strong>Stan</strong> models</h1>
-<p>It is expected that <strong>edstan</strong> users will eventually want to write their own <strong>Stan</strong> models. In this case, the <strong>edstan</strong> functions may still be useful. If the user-written models use the same conventions for naming variables and parameters as the <strong>edstan</strong> models, then the <code>irt_data()</code> and <code>print_irt_stan()</code> functions will work just fine for the user-written models. The function <code>stan_columns_plot()</code> works with any <strong>Stan</strong> model, and <code>labelled_integer()</code> may help in data preparation for <strong>Stan</strong> models in general.</p>
-<p>The <strong>Stan</strong> models included in <strong>edstan</strong> may be used as a starting point in developing custom models. However, the latent regression models are unusually complicated because they are written to be as general as possible. In particular, the “automatic” priors for latent regression coefficients lead to cumbersome <strong>Stan</strong> code. For this reason, simpler <strong>Stan</strong> models are provided that omit the latent regression. These are <em>rasch_simple.stan</em>, <em>pcm_simple.stan</em>, and <em>rsm_simple.stan</em>. The following code shows how to find and view one of these files.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Find and view the &quot;simple&quot; Rasch model</span>
-rasch_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata/rasch_simple.stan&quot;</span>,
-                          <span class="dt">package =</span> <span class="st">&quot;edstan&quot;</span>)
-<span class="kw">cat</span>(<span class="kw">readLines</span>(rasch_file), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
-<p>Note that the latent regression models may be used even when person covariates are not included and will be similarly efficient as their “simple” counterparts.</p>
+<h1>Writing your own Stan models</h1>
+<p>It is expected that edstan users will eventually want to write their
+own Stan models. In this case, the edstan functions may still be useful.
+If the user-written models use the same conventions for naming variables
+and parameters as the edstan models, then the <code>irt_data()</code>
+and <code>print_irt_stan()</code> functions will work just fine for the
+user-written models. The function <code>stan_columns_plot()</code> works
+with any Stan model, and <code>labelled_integer()</code> may help in
+data preparation for Stan models in general.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
@@ -357,7 +797,7 @@ rasch_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<sp
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
